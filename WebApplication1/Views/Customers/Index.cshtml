@@ -1,0 +1,48 @@
+﻿@model IEnumerable<WebApplication1.Models.Customer>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*
+    How to make a Razor View
+
+@{
+    var className = Model.Customers.Count > 5 ? "popular" : null;
+}
+    *@
+
+<h2>Customers</h2>
+
+@if (!Model.Any())
+{
+    <p>We don't have any customers.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th> Customer Name</th>
+                <th>Discount Rate</th>
+                <th>Membership Type</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
+                    <td>@customer.MembershipType.DiscountRate%</td>
+                    <td>@customer.MembershipType.Name</td>
+                    
+                </tr>
+            }
+        </tbody>
+        
+    </table>
+    
+}
+
+
+

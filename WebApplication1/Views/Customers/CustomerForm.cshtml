@@ -1,0 +1,32 @@
+﻿@model WebApplication1.ViewModels.CustomerFormViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Customer</h2>
+@*markup form that bootstrap understands *@
+@using (Html.BeginForm("Save", "Customers"))
+{@*using the helper method for a spin up and MVC automatically support validation*@
+<div class="form-group">
+    @Html.LabelFor(m => m.Customer.Name)
+    @*pass an anonymous object by frfix the class defined in Bootstrap *@
+    @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Customer.Birthdate)
+    @Html.TextBoxFor(m => m.Customer.Birthdate, "{0:d MMM yyyy}", new { @class = "form-control" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Customer.MembershipTypeId)
+    @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" })
+</div>
+<div class="form-check">
+    <label>
+        @Html.CheckBoxFor(m => m.Customer.IsSubcribedToNewsletter) Subcribed to Newsletter?
+    </label>
+</div>
+    @Html.HiddenFor(m => m.Customer.Id)
+<button type="submit" class="btn btn-primary">Save</button>
+}
+
